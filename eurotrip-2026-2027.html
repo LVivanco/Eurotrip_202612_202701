@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EuroTrip 2026–2027 · Luis Vivanco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f4efe2;
+    --paper-2:#ece4d2;
+    --ink:#1e281f;
+    --ink-soft:#5a5c4f;
+    --line:#c9bda2;
+    --gold:#b98a2e;
+    --nl:#c9622b;
+    --es:#a5333a;
+    --fr:#2c5583;
+    --it:#3c7a52;
+    --transit:#867e6c;
+    --card-shadow: 4px 4px 0 var(--line);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--gold);color:var(--paper);}
+
+  h1,h2,h3{
+    font-family:'Fraunces',serif;
+    margin:0;
+    font-weight:600;
+    letter-spacing:-0.01em;
+  }
+
+  a{color:inherit;}
+
+  .wrap{max-width:1040px;margin:0 auto;padding:0 24px;}
+
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:var(--paper);
+    border-bottom:2px solid var(--ink);
+  }
+  .nav-inner{
+    max-width:1040px;margin:0 auto;padding:14px 24px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    flex-wrap:wrap;
+  }
+  .brand{
+    font-family:'Fraunces',serif;font-weight:700;font-size:1.05rem;
+    display:flex;align-items:baseline;gap:8px;
+  }
+  .brand span{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--ink-soft);font-weight:400;}
+  .nav-links{display:flex;gap:4px;flex-wrap:wrap;}
+  .nav-links a{
+    font-size:0.85rem;text-decoration:none;padding:6px 12px;border-radius:999px;
+    border:1px solid transparent;transition:border-color .15s;
+  }
+  .nav-links a:hover{border-color:var(--ink);}
+
+  /* HERO */
+  .hero{
+    border-bottom:2px solid var(--ink);
+    padding:64px 0 48px;
+    background:
+      repeating-linear-gradient(135deg, transparent, transparent 38px, rgba(30,40,31,0.035) 38px, rgba(30,40,31,0.035) 39px);
+  }
+  .hero-eyebrow{
+    font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--ink-soft);
+    display:flex;gap:10px;align-items:center;margin-bottom:18px;
+  }
+  .hero-eyebrow .dot{width:6px;height:6px;background:var(--gold);border-radius:50%;display:inline-block;}
+  .hero h1{
+    font-size:clamp(2.4rem,6vw,4.2rem);line-height:0.98;margin-bottom:22px;
+  }
+  .hero-sub{max-width:520px;color:var(--ink-soft);font-size:1.05rem;margin-bottom:34px;}
+
+  .board{
+    border:2px solid var(--ink);background:var(--ink);color:var(--paper);
+    display:grid;grid-template-columns:repeat(4,1fr);
+    font-family:'Space Mono',monospace;
+  }
+  .board-cell{
+    padding:16px 14px;border-right:1px solid rgba(244,239,226,0.25);
+  }
+  .board-cell:last-child{border-right:none;}
+  .board-cell .k{font-size:0.65rem;letter-spacing:0.06em;color:#c9c2ab;margin-bottom:6px;}
+  .board-cell .v{font-size:1.1rem;font-weight:700;}
+  .board-cell .v small{font-weight:400;font-size:0.7rem;display:block;color:#c9c2ab;margin-top:3px;}
+  @media (max-width:640px){ .board{grid-template-columns:repeat(2,1fr);} }
+
+  section{padding:56px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+  .section-head{margin-bottom:32px;}
+  .section-tag{
+    font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--gold);
+    margin-bottom:8px;
+  }
+  .section-head h2{font-size:clamp(1.6rem,3.5vw,2.2rem);}
+
+  /* FLIGHTS */
+  .flight-table{width:100%;border-collapse:collapse;font-size:0.92rem;}
+  .flight-table thead th{
+    text-align:left;font-family:'Space Mono',monospace;font-weight:400;
+    font-size:0.68rem;color:var(--ink-soft);padding:0 10px 10px;
+    border-bottom:2px solid var(--ink);
+  }
+  .flight-table tbody td{
+    padding:14px 10px;border-bottom:1px solid var(--line);vertical-align:top;
+  }
+  .flight-table tbody tr:hover{background:var(--paper-2);}
+  .route{font-weight:600;}
+  .flight-code{font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--ink-soft);}
+  .flight-time{font-family:'Space Mono',monospace;font-weight:700;}
+  .flight-note{color:var(--ink-soft);font-size:0.85rem;}
+  .flight-table{overflow-x:auto;display:block;}
+
+  /* STAYS */
+  .stays{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;}
+  .stay-card{
+    border:1px solid var(--ink);background:var(--paper-2);padding:20px;
+    box-shadow:var(--card-shadow);position:relative;
+  }
+  .stay-card .flag{font-size:1.3rem;margin-bottom:10px;display:block;}
+  .stay-card .dates{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--ink-soft);margin-bottom:10px;}
+  .stay-card h3{font-size:1.1rem;margin-bottom:6px;}
+  .stay-card p{margin:0;font-size:0.85rem;color:var(--ink-soft);}
+  .stay-card.pending{border-style:dashed;background:transparent;}
+  .stay-card.pending h3{color:var(--es);}
+
+  /* ITINERARY */
+  .day{
+    border:1px solid var(--ink);margin-bottom:12px;background:var(--paper-2);
+    overflow:hidden;scroll-margin-top:80px;
+  }
+  .day.city-nl{border-left:6px solid var(--nl);}
+  .day.city-es{border-left:6px solid var(--es);}
+  .day.city-fr{border-left:6px solid var(--fr);}
+  .day.city-it{border-left:6px solid var(--it);}
+  .day.city-transit{border-left:6px solid var(--transit);}
+  .day-head{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:16px 20px;cursor:pointer;background:none;border:none;width:100%;
+    text-align:left;font-family:inherit;color:inherit;
+  }
+  .day-head-left{display:flex;align-items:baseline;gap:14px;}
+  .day-date{font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--ink-soft);min-width:64px;}
+  .day-title{font-family:'Fraunces',serif;font-weight:600;font-size:1.15rem;}
+  .day-flag{font-size:1.1rem;}
+  .day-toggle{font-family:'Space Mono',monospace;font-size:1rem;color:var(--ink-soft);transition:transform .2s;}
+  .day.open .day-toggle{transform:rotate(45deg);}
+  .day-body{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+  .day.open .day-body{max-height:2400px;}
+  .day-body-inner{padding:0 20px 20px 20px;}
+  .activity{
+    display:grid;grid-template-columns:56px 1fr;gap:14px;padding:9px 0;
+    border-top:1px solid var(--line);
+  }
+  .activity:first-child{border-top:none;}
+  .activity .t{font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--gold);padding-top:1px;}
+  .activity .d{font-size:0.9rem;}
+  .alert-note{
+    margin-top:12px;padding:10px 14px;background:rgba(169,51,58,0.08);
+    border:1px dashed var(--es);font-size:0.82rem;color:var(--es);font-family:'Space Mono',monospace;
+  }
+
+  .city-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;}
+  .city-filter button{
+    font-family:'Space Mono',monospace;font-size:0.72rem;padding:7px 14px;
+    border:1px solid var(--ink);background:var(--paper);cursor:pointer;border-radius:999px;
+  }
+  .city-filter button.active{background:var(--ink);color:var(--paper);}
+
+  /* CALENDAR */
+  .cal-grid-wrap{display:grid;grid-template-columns:1fr 1fr;gap:28px;}
+  @media (max-width:700px){.cal-grid-wrap{grid-template-columns:1fr;}}
+  .cal-month h3{font-family:'Space Mono',monospace;font-size:0.85rem;text-transform:none;margin-bottom:14px;color:var(--ink-soft);}
+  .cal-dow{display:grid;grid-template-columns:repeat(7,1fr);margin-bottom:6px;}
+  .cal-dow span{font-family:'Space Mono',monospace;font-size:0.62rem;color:var(--ink-soft);text-align:center;}
+  .cal-days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+  .cal-day{
+    aspect-ratio:1;border:1px solid var(--line);display:flex;flex-direction:column;
+    align-items:center;justify-content:center;font-size:0.78rem;position:relative;
+    background:transparent;
+  }
+  .cal-day.empty{border-color:transparent;}
+  .cal-day.trip{cursor:pointer;color:var(--paper);font-weight:700;border-color:var(--ink);}
+  .cal-day.trip:hover{outline:2px solid var(--ink);outline-offset:1px;}
+  .cal-day.city-nl{background:var(--nl);}
+  .cal-day.city-es{background:var(--es);}
+  .cal-day.city-fr{background:var(--fr);}
+  .cal-day.city-it{background:var(--it);}
+  .cal-day.city-transit{background:var(--transit);}
+  .cal-day .dot{position:absolute;bottom:4px;width:4px;height:4px;background:var(--paper);border-radius:50%;}
+  .cal-legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px;font-size:0.78rem;}
+  .cal-legend span{display:inline-flex;align-items:center;gap:6px;}
+  .cal-legend i{width:11px;height:11px;display:inline-block;border:1px solid var(--ink);}
+
+  footer{padding:30px 0 50px;text-align:center;color:var(--ink-soft);font-size:0.8rem;font-family:'Space Mono',monospace;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;scroll-behavior:auto !important;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <div class="brand">EUROTRIP <span>26/27 · L. VIVANCO</span></div>
+    <div class="nav-links">
+      <a href="#vuelos">Vuelos</a>
+      <a href="#hospedajes">Hospedajes</a>
+      <a href="#itinerario">Itinerario</a>
+      <a href="#calendario">Calendario</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hero-eyebrow"><span class="dot"></span> MOCHILA Y CARRY-ON · SIN EQUIPAJE DE BODEGA</div>
+    <h1>Ámsterdam → Madrid<br>→ París → Roma</h1>
+    <p class="hero-sub">Doce días recorriendo cuatro países en temporada navideña, de Nochebuena a Reyes: canales iluminados, un clásico madrileño, Disneyland, y Nochevieja frente al Coliseo.</p>
+    <div class="board">
+      <div class="board-cell"><div class="k">SALIDA</div><div class="v">24 DIC<small>Lima (LIM)</small></div></div>
+      <div class="board-cell"><div class="k">REGRESO</div><div class="v">04 ENE<small>Lima (LIM)</small></div></div>
+      <div class="board-cell"><div class="k">DURACIÓN</div><div class="v">12 días<small>7 vuelos</small></div></div>
+      <div class="board-cell"><div class="k">PAÍSES</div><div class="v">4<small>NL·ES·FR·IT</small></div></div>
+    </div>
+  </div>
+</header>
+
+<section id="vuelos">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">01 — LOGÍSTICA AÉREA</div>
+      <h2>Resumen de vuelos</h2>
+    </div>
+    <table class="flight-table">
+      <thead>
+        <tr><th>Fecha</th><th>Ruta</th><th>Vuelo</th><th>Salida</th><th>Llegada</th><th>Nota</th></tr>
+      </thead>
+      <tbody id="flight-body"></tbody>
+    </table>
+  </div>
+</section>
+
+<section id="hospedajes">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">02 — DÓNDE DORMIR</div>
+      <h2>Directorio de hospedajes</h2>
+    </div>
+    <div class="stays" id="stays"></div>
+  </div>
+</section>
+
+<section id="itinerario">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">03 — DÍA A DÍA</div>
+      <h2>Itinerario detallado</h2>
+    </div>
+    <div class="city-filter" id="city-filter"></div>
+    <div id="days"></div>
+  </div>
+</section>
+
+<section id="calendario">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="section-tag">04 — VISTA MENSUAL</div>
+      <h2>Calendario del viaje</h2>
+    </div>
+    <div class="cal-grid-wrap">
+      <div class="cal-month" id="cal-dec"></div>
+      <div class="cal-month" id="cal-jan"></div>
+    </div>
+    <div class="cal-legend">
+      <span><i style="background:var(--nl)"></i> Ámsterdam</span>
+      <span><i style="background:var(--es)"></i> Madrid</span>
+      <span><i style="background:var(--fr)"></i> París</span>
+      <span><i style="background:var(--it)"></i> Roma</span>
+      <span><i style="background:var(--transit)"></i> En tránsito</span>
+    </div>
+  </div>
+</section>
+
+<footer>PLAN MAESTRO DE VIAJE — EUROTRIP 2026/2027 — HECHO PARA VIAJAR LIGERO</footer>
+
+<script>
+const CITY_META = {
+  nl: {flag:'🇳🇱', name:'Ámsterdam'},
+  es: {flag:'🇪🇸', name:'Madrid'},
+  fr: {flag:'🇫🇷', name:'París'},
+  it: {flag:'🇮🇹', name:'Roma'},
+  transit: {flag:'✈️', name:'En tránsito'}
+};
+
+const FLIGHTS = [
+  {date:'24 Dic', route:'Lima (LIM) → Ámsterdam (AMS)', code:'KL0744 · KLM', dep:'20:10', arr:'14:05 (+1)', note:'Vuelo transatlántico'},
+  {date:'26 Dic', route:'Ámsterdam (AMS) → Madrid (MAD)', code:'KL1501 · KLM', dep:'07:40', arr:'10:15', note:'Llegada a T2'},
+  {date:'28 Dic', route:'Madrid (MAD) → París (ORY)', code:'UX1027 · Air Europa', dep:'08:00', arr:'09:55', note:'Tarifa NOBAG'},
+  {date:'31 Dic', route:'París (CDG) → Roma (FCO)', code:'AF1104 · Air France', dep:'09:35', arr:'11:45', note:'Salida desde CDG'},
+  {date:'03 Ene', route:'Roma (FCO) → Madrid (MAD)', code:'AZ58 · ITA Airways', dep:'08:10', arr:'10:45', note:'Llegada a T2'},
+  {date:'03 Ene', route:'Madrid (MAD) → París (CDG)', code:'AF1101 · Air France', dep:'20:05', arr:'22:20', note:'Escala nocturna'},
+  {date:'04 Ene', route:'París (CDG) → Lima (LIM)', code:'AF0500 · Air France', dep:'10:20', arr:'17:00', note:'Vuelo de retorno'}
+];
+
+const STAYS = [
+  {flag:'🇳🇱', dates:'25 — 26 DIC', name:'ibis Styles Amsterdam Airport', note:'Cerca de Schiphol. Acceso rápido para el vuelo matutino.'},
+  {flag:'🇪🇸', dates:'26 — 28 DIC', name:'Numa Madrid', note:'Centro de Madrid. Base estratégica para recorridos a pie.'},
+  {flag:'🇫🇷', dates:'28 — 31 DIC', name:'Hotel Mimosa Paris', note:'Conexión eficiente en Metro/RER para ciudad y Disney.'},
+  {flag:'🇮🇹', dates:'31 DIC — 03 ENE', name:'Meininger Roma Termini', note:'Junto a la estación Termini. Ideal para el tren al aeropuerto.'},
+  {flag:'🇫🇷', dates:'03 — 04 ENE', name:'Por definir', note:'Recomendación: ibis Paris CDG o Holiday Inn Express, sobre la línea CDGVAL.', pending:true}
+];
+
+// Cada día: month/day para calendario 2026/2027, city, title, activities [hora, texto], alert opcional
+const DAYS = [
+  {m:12,d:24,city:'transit',flag:'✈️',title:'En tránsito · Lima → Ámsterdam',
+   activities:[['20:10','Salida de Lima (LIM) en el vuelo KLM KL0744 hacia Ámsterdam.'],['—','Noche a bordo del avión.']]},
+
+  {m:12,d:25,city:'nl',flag:'🇳🇱',title:'Ámsterdam · Navidad en los canales',
+   activities:[
+     ['14:05','Aterrizaje en Schiphol (AMS) y control migratorio de entrada a Europa.'],
+     ['15:30','Traslado al ibis Styles Amsterdam Airport para dejar el equipaje.'],
+     ['17:30','Llegada a Amsterdam Centraal. Caminata por Damrak hacia la Plaza Dam: foto del Palacio Real y Nieuwe Kerk iluminada.'],
+     ['18:30','Recorrido a pie por los canales Singel y Herengracht viendo las esculturas del Amsterdam Light Festival.'],
+     ['19:30','Caminata por el barrio Jordaan: fachada de la Casa de Ana Frank e iglesia Westerkerk.'],
+     ['20:30','Cena navideña (reserva obligatoria) en restaurante tradicional del Jordaan.'],
+     ['22:00','Paseo nocturno de regreso por el canal Prinsengracht hacia la estación.'],
+     ['22:45','Llegada al hotel para descansar.']
+   ],
+   alert:'Alerta siguiente vuelo: sale a las 07:40 del 26 dic — salir del hotel a las 05:20 am.'},
+
+  {m:12,d:26,city:'es',flag:'🇪🇸',title:'Madrid · Historia, fútbol y atardeceres',
+   activities:[
+     ['10:15','Aterrizaje en Barajas (MAD). Traslado en Metro L8 o Cercanías.'],
+     ['12:30','Check-in en Numa Madrid y almuerzo de calamares y caña en Plaza Mayor.'],
+     ['13:45','Kilómetro Cero en Puerta del Sol y caminata por la calle Mayor hacia la Plaza de la Villa.'],
+     ['14:30','Foto exterior del Palacio Real desde la Plaza de la Armería y la Catedral de la Almudena.'],
+     ['15:30','Jardines de Sabatini y foto en el Templo de Debod con vista a la Casa de Campo.'],
+     ['17:00','Tour completo por el Estadio Santiago Bernabéu: museo interactivo, cancha y tienda oficial.'],
+     ['19:45','Caminata comercial nocturna por Gran Vía, Edificio Metrópolis y terraza del Círculo de Bellas Artes.'],
+     ['21:30','Cena de tapas en el Mercado de San Ildefonso, Malasaña.']
+   ]},
+
+  {m:12,d:27,city:'es',flag:'🇪🇸',title:'Madrid · El Atleti, arte y tapeo clásico',
+   activities:[
+     ['09:30','Tour Cívitas Metropolitano: vestuarios, túnel y museo Territorio Atleti.'],
+     ['12:30','Fuente de Cibeles, Palacio de Cibeles y Puerta de Alcalá.'],
+     ['13:15','Parque de El Retiro: Palacio de Cristal, barca en el Estanque Grande y monumento a Alfonso XII.'],
+     ['14:45','Almuerzo de cocina castellana en el Barrio de las Letras.'],
+     ['16:30','Paseo del Prado: fachada del Museo del Prado, Real Jardín Botánico, Fuente de Neptuno y Atocha.'],
+     ['18:30','Barrio de La Latina: Real Basílica de San Francisco el Grande y tapeo en Cava Baja.'],
+     ['21:30','Regreso a Numa Madrid para organizar equipaje.']
+   ],
+   alert:'Alerta siguiente vuelo: sale a las 08:00 del 28 dic desde MAD T2 — salir a las 05:45 am.'},
+
+  {m:12,d:28,city:'fr',flag:'🇫🇷',title:'París · Primer vistazo a la Ciudad de la Luz',
+   activities:[
+     ['09:55','Aterrizaje en Orly (ORY). Traslado al centro en Metro L14.'],
+     ['11:30','Entrega de mochilas en Hotel Mimosa y almuerzo de bistró en Place de la République.'],
+     ['13:00','Île de la Cité: Notre-Dame restaurada, Conciergerie, Pont Neuf y Sainte-Chapelle.'],
+     ['14:15','Barrio Latino: Shakespeare and Company y fachada de la Sorbona.'],
+     ['15:30','Pont des Arts, Cour Carrée del Louvre y fotos en las Pirámides del museo.'],
+     ['16:45','Jardín de las Tullerías y el obelisco de la Place de la Concorde.'],
+     ['17:30','Mirador de la Plaza del Trocadéro para ver la Torre Eiffel al atardecer.'],
+     ['18:30',"Pont d'Iéna y subida a la Torre Eiffel (reserva previa imprescindible)."],
+     ['20:30','Campo de Marte (destello de luces cada hora) y cena cerca de Rue Cler.']
+   ]},
+
+  {m:12,d:29,city:'fr',flag:'🇫🇷',title:'París · Día completo en Disneyland',
+   activities:[
+     ['07:30','Salida desde Châtelet-Les Halles en RER A hacia Marne-la-Vallée Chessy.'],
+     ['09:00',"Walt Disney Studios Park: Crush's Coaster, Ratatouille y Marvel Avengers Campus."],
+     ['13:00','Almuerzo rápido dentro del parque, en Avengers Campus.'],
+     ['14:00','Disneyland Park: Big Thunder Mountain, Hyperspace Mountain, Peter Pan y Piratas del Caribe.'],
+     ['17:30','Desfile navideño Disney Christmas Parade en Main Street U.S.A.'],
+     ['19:30','Foto frente al castillo iluminado y cena rápida.'],
+     ['21:30','Espectáculo nocturno Disney Illuminations / Disney Dreams con drones y fuegos artificiales.'],
+     ['22:30','RER A de regreso al Hotel Mimosa.']
+   ]},
+
+  {m:12,d:30,city:'fr',flag:'🇫🇷',title:'París · Fútbol, vistas panorámicas y bohemia',
+   activities:[
+     ['09:00','Estadio Parc des Princes (PSG), boutique oficial y fachada del Stade Jean-Bouin.'],
+     ['11:15','Arco del Triunfo y subida a la terraza mirador.'],
+     ['12:30','Campos Elíseos, Grand Palais y Petit Palais.'],
+     ['13:45','Crepes y metro hacia Abbesses, Montmartre.'],
+     ['14:30','Montmartre: Muro de los "Te Amo", Place du Tertre, Moulin de la Galette y viñedo urbano.'],
+     ['16:00','Mirador desde las escalinatas de la Basílica del Sacré-Cœur.'],
+     ['17:15','Bajada hacia Pigalle: fachada del Moulin Rouge.'],
+     ['18:15','Palacio Garnier y terraza panorámica gratuita de Galerías Lafayette.'],
+     ['19:30','Pasajes cubiertos: Passage des Panoramas y Galerie Vivienne.'],
+     ['20:30','Cena en Le Marais.'],
+     ['22:15','Crucero nocturno de 1 hora por el Sena en Bateaux Parisiens.']
+   ],
+   alert:'Alerta siguiente vuelo: sale a las 09:35 del 31 dic desde CDG — salir a las 06:30 am.'},
+
+  {m:12,d:31,city:'it',flag:'🇮🇹',title:'Roma · Nochevieja en la Ciudad Eterna',
+   activities:[
+     ['11:45','Aterrizaje en Roma Fiumicino (FCO). Tren Leonardo Express directo a Termini.'],
+     ['13:15','Llegada al Meininger Roma Termini y pizza al taglio en Mercato Centrale.'],
+     ['14:30','Fontana del Tritone y caminata hacia la Fontana di Trevi.'],
+     ['15:30','Piazza di Pietra (Templo de Adriano) y Piazza Colonna.'],
+     ['16:15','Panteón de Agripa en Piazza della Rotonda.'],
+     ['17:15','Piazza Navona y mercado navideño tradicional.'],
+     ['19:00','Via dei Fori Imperiali: fotos con el Coliseo Romano iluminado.'],
+     ['20:30','Cena especial de Nochevieja en Monti (cotechino con lentejas).'],
+     ['23:30','Celebración pública de Año Nuevo frente al Coliseo, con concierto y fuegos artificiales.']
+   ]},
+
+  {m:1,d:1,city:'it',flag:'🇮🇹',title:'Roma · Año Nuevo olímpico y Trastevere',
+   activities:[
+     ['10:30','Foro Itálico: recorrido exterior del Stadio Olimpico (AS Roma / SS Lazio).'],
+     ['12:30','Piazza del Popolo: iglesias gemelas y Obelisco Flaminio.'],
+     ['13:45','Trastevere: almuerzo de pasta tradicional (carbonara o cacio e pepe).'],
+     ['15:30','Callejones de Trastevere y Basílica de Santa María.'],
+     ['16:30','Colina del Janículo: vista panorámica desde el Monumento a Garibaldi.'],
+     ['18:00','Descenso cruzando el histórico Puente Sisto.'],
+     ['19:30','Gelato artesanal y regreso al Meininger Roma Termini.']
+   ]},
+
+  {m:1,d:2,city:'it',flag:'🇮🇹',title:'Roma · El Vaticano y atardecer romano',
+   activities:[
+     ['08:30','Primer turno reservado: Museos Vaticanos y Capilla Sixtina.'],
+     ['11:00','Basílica de San Pedro y Plaza de San Pedro.'],
+     ['12:45',"Via della Conciliazione, Castillo de Sant'Angelo y su puente."],
+     ['13:45','Almuerzo en trattoria típica cerca del Tíber.'],
+     ['15:15','Fontana della Barcaccia y las 135 escalinatas de la Plaza de España.'],
+     ['16:30','Via dei Condotti y mirador del Monte Pincio en Villa Borghese al atardecer.'],
+     ['18:00','Piazza Venezia y ruinas del Largo di Torre Argentina.'],
+     ['20:00','Última cena italiana en Monti y preparación de equipaje.']
+   ],
+   alert:'Alerta siguiente vuelo: sale a las 08:10 del 3 ene desde FCO — tren Leonardo Express a las 05:35 am.'},
+
+  {m:1,d:3,city:'es',flag:'🇪🇸',title:'Madrid · Despedida express (escala de 9h) → París',
+   activities:[
+     ['10:45','Aterrizaje en Madrid Barajas (MAD, T2) desde Roma.'],
+     ['11:45','Salida directa del aeropuerto (sin bodega) en Metro L8 hacia Sol.'],
+     ['12:30','Almuerzo de despedida (jamón ibérico y croquetas) en Chueca o Chamberí.'],
+     ['14:15','Compras de último momento por Fuencarral y Gran Vía.'],
+     ['15:30','Café en terraza panorámica del Palacio de Cibeles o mirador de Callao.'],
+     ['16:15','Metro L8 de regreso a Barajas T2. Presentación en terminal a las 17:30.'],
+     ['20:05','Vuelo de salida hacia París (AF1101).'],
+     ['22:20','Aterrizaje en París (CDG).'],
+     ['23:00','Tren CDGVAL hacia el hotel del perímetro del aeropuerto para descansar.']
+   ]},
+
+  {m:1,d:4,city:'transit',flag:'✈️',title:'París → Lima · Retorno a Perú',
+   activities:[
+     ['07:15','Check-out del hotel y CDGVAL directo a la Terminal 2E.'],
+     ['09:20','Controles migratorios y de seguridad superados. Espera en puerta de embarque.'],
+     ['10:20','Despegue del vuelo AF0500.'],
+     ['17:00','Aterrizaje en Lima (LIM). ¡Fin del viaje!']
+   ]}
+];
+
+// ---------- Render vuelos ----------
+const flightBody = document.getElementById('flight-body');
+FLIGHTS.forEach(f=>{
+  const tr=document.createElement('tr');
+  tr.innerHTML=`<td class="flight-time">${f.date}</td>
+    <td class="route">${f.route}</td>
+    <td class="flight-code">${f.code}</td>
+    <td class="flight-time">${f.dep}</td>
+    <td class="flight-time">${f.arr}</td>
+    <td class="flight-note">${f.note}</td>`;
+  flightBody.appendChild(tr);
+});
+
+// ---------- Render hospedajes ----------
+const staysEl=document.getElementById('stays');
+STAYS.forEach(s=>{
+  const div=document.createElement('div');
+  div.className='stay-card'+(s.pending?' pending':'');
+  div.innerHTML=`<span class="flag">${s.flag}</span>
+    <div class="dates">${s.dates}</div>
+    <h3>${s.name}</h3>
+    <p>${s.note}</p>`;
+  staysEl.appendChild(div);
+});
+
+// ---------- Render filtro de ciudades ----------
+const filterEl=document.getElementById('city-filter');
+const cityKeys=['all','nl','es','fr','it','transit'];
+const cityLabels={all:'Todos los días', nl:'🇳🇱 Ámsterdam', es:'🇪🇸 Madrid', fr:'🇫🇷 París', it:'🇮🇹 Roma', transit:'✈️ Tránsito'};
+let activeFilter='all';
+cityKeys.forEach(k=>{
+  const btn=document.createElement('button');
+  btn.textContent=cityLabels[k];
+  if(k==='all') btn.classList.add('active');
+  btn.dataset.city=k;
+  btn.addEventListener('click',()=>{
+    activeFilter=k;
+    document.querySelectorAll('.city-filter button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    renderDays();
+  });
+  filterEl.appendChild(btn);
+});
+
+// ---------- Render itinerario ----------
+const monthNames={12:'dic',1:'ene'};
+const daysEl=document.getElementById('days');
+function renderDays(){
+  daysEl.innerHTML='';
+  DAYS.filter(d=>activeFilter==='all'||d.city===activeFilter).forEach((day,idx)=>{
+    const el=document.createElement('div');
+    el.className=`day city-${day.city}`;
+    el.id=`day-${day.m}-${day.d}`;
+    const acts=day.activities.map(a=>`<div class="activity"><div class="t">${a[0]}</div><div class="d">${a[1]}</div></div>`).join('');
+    el.innerHTML=`
+      <button class="day-head">
+        <div class="day-head-left">
+          <span class="day-date">${String(day.d).padStart(2,'0')} ${monthNames[day.m]}</span>
+          <span class="day-flag">${day.flag}</span>
+          <span class="day-title">${day.title}</span>
+        </div>
+        <span class="day-toggle">+</span>
+      </button>
+      <div class="day-body"><div class="day-body-inner">
+        ${acts}
+        ${day.alert?`<div class="alert-note">${day.alert}</div>`:''}
+      </div></div>`;
+    el.querySelector('.day-head').addEventListener('click',()=>el.classList.toggle('open'));
+    daysEl.appendChild(el);
+  });
+}
+renderDays();
+
+// ---------- Render calendario ----------
+function dayLookup(m,d){ return DAYS.find(x=>x.m===m&&x.d===d); }
+
+function renderMonth(container, year, month, monthLabel){
+  container.innerHTML=`<h3>${monthLabel}</h3>
+    <div class="cal-dow">${['L','M','X','J','V','S','D'].map(x=>`<span>${x}</span>`).join('')}</div>
+    <div class="cal-days" id="cal-days-${month}"></div>`;
+  const grid=container.querySelector(`#cal-days-${month}`);
+  const first=new Date(year,month-1,1);
+  let startWeekday=first.getDay(); // 0=Sun
+  startWeekday=(startWeekday+6)%7; // convert to Mon=0
+  const daysInMonth=new Date(year,month,0).getDate();
+
+  for(let i=0;i<startWeekday;i++){
+    const empty=document.createElement('div');
+    empty.className='cal-day empty';
+    grid.appendChild(empty);
+  }
+  for(let d=1; d<=daysInMonth; d++){
+    const info=dayLookup(month===1?1:12, d);
+    const cell=document.createElement('div');
+    cell.className='cal-day'+(info?` trip city-${info.city}`:'');
+    cell.innerHTML=`${d}`;
+    if(info){
+      cell.title=info.title;
+      cell.addEventListener('click',()=>{
+        activeFilter='all';
+        document.querySelectorAll('.city-filter button').forEach(b=>b.classList.toggle('active', b.dataset.city==='all'));
+        renderDays();
+        requestAnimationFrame(()=>{
+          const target=document.getElementById(`day-${info.m}-${info.d}`);
+          if(target){
+            target.classList.add('open');
+            target.scrollIntoView({behavior:'smooth', block:'center'});
+          }
+        });
+      });
+    }
+    grid.appendChild(cell);
+  }
+}
+renderMonth(document.getElementById('cal-dec'), 2026, 12, 'Diciembre 2026');
+renderMonth(document.getElementById('cal-jan'), 2027, 1, 'Enero 2027');
+</script>
+</body>
+</html>
