@@ -321,7 +321,7 @@ const FLIGHTS = [
 const STAYS = [
   {flag:'🇳🇱', dates:'25 — 26 DIC', name:'ibis Styles Amsterdam Airport', note:'Cerca de Schiphol. Acceso rápido para el vuelo matutino.'},
   {flag:'🇪🇸', dates:'26 — 28 DIC', name:'Numa Madrid', note:'Centro de Madrid. Base estratégica para recorridos a pie.'},
-  {flag:'🇫🇷', dates:'28 — 31 DIC', name:'Hotel Mimosa Paris', note:'Conexión eficiente en Metro/RER para ciudad y Disney.'},
+  {flag:'🇫🇷', dates:'28 — 31 DIC', name:'JO&JOE Paris - Nation', note:'Ubicación estratégica en la línea RER A. Conexión directa a Disneyland.'},
   {flag:'🇮🇹', dates:'31 DIC — 03 ENE', name:'Meininger Roma Termini', note:'Junto a la estación Termini. Ideal para el tren al aeropuerto.'},
   {flag:'🇫🇷', dates:'03 — 04 ENE', name:'Por definir', note:'Recomendación: ibis Paris CDG o Holiday Inn Express, sobre la línea CDGVAL.', pending:true}
 ];
@@ -331,16 +331,19 @@ const DAYS = [
   {m:12,d:24,city:'transit',flag:'✈️',title:'En tránsito · Lima → Ámsterdam',
    activities:[['20:10','Salida de Lima (LIM) en el vuelo KLM KL0744 hacia Ámsterdam.'],['—','Noche a bordo del avión.']]},
 
-  {m:12,d:25,city:'nl',flag:'🇳🇱',title:'Ámsterdam · Navidad en los canales',
+  {m:12,d:25,city:'nl',flag:'🇳🇱',title:'Ámsterdam · Fútbol, Navidad y canales iluminados',
    activities:[
-     ['14:05','Aterrizaje en Schiphol (AMS) y control migratorio de entrada a Europa.'],
-     ['15:30','Traslado al ibis Styles Amsterdam Airport para dejar el equipaje.'],
-     ['17:30','Llegada a Amsterdam Centraal. Caminata por Damrak hacia la Plaza Dam: foto del Palacio Real y Nieuwe Kerk iluminada.'],
-     ['18:30','Recorrido a pie por los canales Singel y Herengracht viendo las esculturas del Amsterdam Light Festival.'],
+     ['14:05','Aterrizaje en Schiphol (AMS) y control migratorio de entrada al espacio Schengen.'],
+     ['15:30','Traslado al ibis Styles Amsterdam Airport para hacer check-in y dejar el equipaje.'],
+     ['16:30','Traslado en transporte público hacia la estación Amsterdam Bijlmer ArenA.'],
+     ['17:00','Visita a la explanada del Johan Cruyff Arena (estadio del Ajax): fachada, tienda oficial y complejo deportivo.'],
+     ['17:40','Tren directo desde Bijlmer ArenA hacia Amsterdam Centraal.'],
+     ['18:00','Caminata por Damrak hacia la Plaza Dam: foto del Palacio Real y Nieuwe Kerk iluminada.'],
+     ['18:45','Recorrido a pie por los canales Singel y Herengracht viendo las esculturas del Amsterdam Light Festival.'],
      ['19:30','Caminata por el barrio Jordaan: fachada de la Casa de Ana Frank e iglesia Westerkerk.'],
      ['20:30','Cena navideña (reserva obligatoria) en restaurante tradicional del Jordaan.'],
      ['22:00','Paseo nocturno de regreso por el canal Prinsengracht hacia la estación.'],
-     ['22:45','Llegada al hotel para descansar.']
+     ['22:45','Llegada al hotel para descansar antes del vuelo de madrugada.']
    ],
    alert:'Alerta siguiente vuelo: sale a las 07:40 del 26 dic — salir del hotel a las 05:20 am.'},
 
@@ -370,8 +373,8 @@ const DAYS = [
 
   {m:12,d:28,city:'fr',flag:'🇫🇷',title:'París · Primer vistazo a la Ciudad de la Luz',
    activities:[
-     ['09:55','Aterrizaje en Orly (ORY). Traslado al centro en Metro L14.'],
-     ['11:30','Entrega de mochilas en Hotel Mimosa y almuerzo de bistró en Place de la République.'],
+     ['09:55','Aterrizaje en Orly (ORY). Metro L14 hasta Gare de Lyon y conexión con Metro L1 o RER A hacia Nation.'],
+     ['11:30','Entrega de mochilas en JO&JOE Paris - Nation y almuerzo en bistrós locales de Place de la Nation.'],
      ['13:00','Île de la Cité: Notre-Dame restaurada, Conciergerie, Pont Neuf y Sainte-Chapelle.'],
      ['14:15','Barrio Latino: Shakespeare and Company y fachada de la Sorbona.'],
      ['15:30','Pont des Arts, Cour Carrée del Louvre y fotos en las Pirámides del museo.'],
@@ -383,14 +386,14 @@ const DAYS = [
 
   {m:12,d:29,city:'fr',flag:'🇫🇷',title:'París · Día completo en Disneyland',
    activities:[
-     ['07:30','Salida desde Châtelet-Les Halles en RER A hacia Marne-la-Vallée Chessy.'],
+     ['08:15','Caminata a la estación Nation y abordaje del RER A directo a Marne-la-Vallée Chessy (35 min).'],
      ['09:00',"Walt Disney Studios Park: Crush's Coaster, Ratatouille y Marvel Avengers Campus."],
      ['13:00','Almuerzo rápido dentro del parque, en Avengers Campus.'],
      ['14:00','Disneyland Park: Big Thunder Mountain, Hyperspace Mountain, Peter Pan y Piratas del Caribe.'],
      ['17:30','Desfile navideño Disney Christmas Parade en Main Street U.S.A.'],
      ['19:30','Foto frente al castillo iluminado y cena rápida.'],
      ['21:30','Espectáculo nocturno Disney Illuminations / Disney Dreams con drones y fuegos artificiales.'],
-     ['22:30','RER A de regreso al Hotel Mimosa.']
+     ['22:30','RER A directo de regreso a la estación Nation y descanso en JO&JOE.']
    ]},
 
   {m:12,d:30,city:'fr',flag:'🇫🇷',title:'París · Fútbol, vistas panorámicas y bohemia',
@@ -411,6 +414,8 @@ const DAYS = [
 
   {m:12,d:31,city:'it',flag:'🇮🇹',title:'Roma · Nochevieja en la Ciudad Eterna',
    activities:[
+     ['06:30','Check-out en JO&JOE Paris - Nation. RER A hasta Châtelet-Les Halles y conexión con RER B directo a CDG.'],
+     ['09:35','Despegue del vuelo AF1104 hacia Italia.'],
      ['11:45','Aterrizaje en Roma Fiumicino (FCO). Tren Leonardo Express directo a Termini.'],
      ['13:15','Llegada al Meininger Roma Termini y pizza al taglio en Mercato Centrale.'],
      ['14:30','Fontana del Tritone y caminata hacia la Fontana di Trevi.'],
